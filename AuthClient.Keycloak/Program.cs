@@ -1,4 +1,11 @@
+using Keycloak.AuthServices.Authentication;
+using Keycloak.AuthServices.Authorization;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddKeycloakAuthentication(builder.Configuration);
+builder.Services.AddAuthorization();
+builder.Services.AddKeycloakAuthorization(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -14,6 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
